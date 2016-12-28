@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="style/layout.css">
+</head>
+<body>
+	<audio id="audio1" src="media/BGM.mp3" loop="loop">Try Another Browser</audio>
+	<div id="musicCtrl">
+		<div id="play"></div>
+		<div id="pause"></div>
+	</div>
+	<div id="backToTop"></div>
+	<div id="wrapper">
+		<header>
+			<div id="masthead">
+				<div id="headerCont">
+					<div id="headPic"></div>
+					<p>HELLO</p>
+					<p>我是<span>许蓓豪</span></p>
+					<p><span>"</span>你ta喵的在逗我吧！这明明是只喵!<span>"</span></p>
+					<p><span>"</span>你才ta喵的在逗我呢！我怎么会再在期末作业里放自拍!<span>"</span></p>
+				</div>
+				<nav>
+					<div id="tabs">
+						<li class="atab">
+							<p>个人信息</p>
+						</li>
+						<li class="ntab">
+							<p>个人技能</p>
+						</li>
+						<li class="ntab">
+							<p>项目展示</p>
+						</li>
+						<li class="ntab">
+							<p>留言</p>
+						</li>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<article>
+			<section>
+				<div id="mainCont">
+					<div  class="adiv">
+						<div id="profile">
+							<p>基本信息</p>
+							<hr>
+							<div id="profileName">
+								<p>姓名</p>
+								<p>性别</p>
+								<p>出生日期</p>
+								<p>居住地</p>
+								<p>毕业院校</p>
+								<p>专业</p>
+							</div>
+							<div id="profileCont">
+								<p>许蓓豪</p>
+								<p>男</p>
+								<p>1996.xx.xx</p>
+								<p>上海</p>
+								<p>上海立信会计金融学院</p>
+								<p>信息管理与信息系统</p>
+							</div>
+						</div>
+						<div id="aboutMe">
+							<p>关于我</p>
+							<hr>
+							<p>Hello, I am <strong>Xu Beihao</strong>, from Shanghai.Institute, confident, optimistic, strong sense of responsibility is my characteristics. I have good team organization ability, analysis problem and propaganda planning activity ability, coordination ability, etc.. Learning also has a strong thirst for knowledge and good learning ability. Sincere people, accustomed to thinking; strict requirements on their own, adapt to the requirements of the industry and the challenge of the new technology; have a strong thirst for knowledge, strong learning ability. I am interested in web design, web design and responsive UI design have a certain understanding, good at using Div + CSS for the layout and design of the web page, can be very good according to user needs complete availability, ease of use, good interactivity and user experience ".</p>
+						</div>
+					</div>
+					<div>
+						<div id="mySkill">
+							<div id="dropIn" ondrop="drop(this,event);" ondragenter="return false" ondragover="return false"></div>
+							<div id="dragOut" ondrop="drop(this,event)" ondragenter="return false" ondragover="return false">
+								<div id="drag1" draggable="true"></div>
+								<div id="drag2" draggable="true"></div>
+								<div id="drag3" draggable="true"></div>
+								<div id="drag4" draggable="true"></div>
+								<div id="drag5" draggable="true"></div>
+								<div id="drag6" draggable="true"></div>
+								<div id="drag7" draggable="true"></div>
+								<div id="drag8" draggable="true"></div>
+							</div>
+							<div id="dragText">请将横线上的小球拖进上方的圆
+								<p>P.S 请一定要放下小球啊，也不要同时拖两个球进去啊。这个还不是我的能力范围之内哦,不过以后怎么也不会拿这个当简历去用啊</p>
+							</div>
+							<div id="dragTip">(ง •̀_•́)ง看看我会啥</div>
+							<hr>
+							<canvas id="canvas1" width="170" height="170"></canvas>
+						</div>
+					</div>
+					<div>
+						<div id="pjDiv">
+							<div id="pjCont">
+								<div class="aCont">
+									<div class="pjContHeader">
+										<p>Canvas项目</p>
+										<hr>
+									</div>
+									<div id="showCanvas1"></div>
+									<div id="showCanvas2"></div>
+								</div>
+								<div>
+									<div class="pjContHeader">
+										<p>动态贺卡</p>
+										<hr>
+									</div>
+									<div id="showCard"></div>
+								</div>
+								<div>
+									<div class="pjContHeader">
+										<p>第一次简历项目</p>
+										<hr>
+									</div>
+									<div id="showResume"></div>
+								</div>
+								<div>
+									<div class="pjContHeader">
+										<p>静态页面项目</p>
+										<hr>
+									</div>
+									<div id="showPage1"></div>
+									<div id="showPage2"></div>
+									<div id="showPage3"></div>
+									<div id="showPage4"></div>
+									<div id="showPage5"></div>
+								</div>
+								<div>
+									<div class="pjContHeader">
+										<p>地理定位项目</p>
+										<hr>
+									</div>
+									<div id="showPosition"></div>
+								</div>
+							</div>
+							<div id="pjNav">
+								<div class="aNav"></div>
+								<div class="nNav"></div>
+								<div class="nNav"></div>
+								<div class="nNav"></div>
+								<div class="nNav"></div>
+							</div>
+							<div id="pjLeft"></div>
+							<div id="pjRight"></div>
+						</div>
+					</div>
+					<div>
+						<div id="lsDiv">
+							<div class="pjContHeader">
+								<p>留言板</p>
+								<hr>
+							</div>
+							<div id="dispTxt"></div>
+							<form>
+								<textarea id="txtarea" maxlength="150" placeholder="请您在这里留下宝贵的评论吧"></textarea>
+								<div id="subBt">提交</div>
+								<div id="clearBt">清除</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+			<hr>
+			<section>
+				<div id="contactMe">
+					<p>_(:3 」∠)_求勾搭</p>
+					<form>
+						<input type="email" name="email" id="mailBox" placeholder="在这里填上你的邮箱">
+						<input type="submit" value="我要勾搭" id="mailButton">
+					</form>
+					<div id="contactName">
+						<p>手机</p>
+						<p>QQ</p>
+						<div class="clear"></div>
+						<p>微信</p>
+						<p>邮箱</p>
+					</div>
+					<div id="contactCont">
+						<p>15xxxxxxxx0</p>
+						<p>40xxxxxx1</p>
+						<div class="clear"></div>
+						<p>15xxxxxxxx0</p>
+						<p>cxxxxxxxx@outlook.com</p>
+					</div>
+				</div>
+			</section>
+		</article>
+		<footer>
+			<div id="footerCont">
+				<div id="clock"></div>
+				<div id="pageCount"></div>
+				<div id="copyRight">2014122122 信息管理与信息系统1班 许蓓豪</div>
+			</div>
+		</footer>
+		<div class="clear"></div>
+	</div>
+	<script src="script/script.js"></script>
+</body>
+</html>
+	<!--期末项目-->
+	<!--tab切换页简历-->
+	<!--第一屏、个人基本信息介绍-->
+	<!--第二屏、技能、canvas圆形进度条、div拖放-->
+	<!--第三屏、项目展示-->
+		<!--canvas项目-->
+		<!--贺卡项目-->
+		<!--第一次简历项目-->
+		<!--罗远课程页面-->
+		<!--地理定位-->
+	<!--第四屏、教师评价，访问次数统计-->
+	<!--右下角添加浮动按钮控制背景音乐，回到顶部-->
+	<!--#115460,#392422,#6399a3,#c5d3d9,#e9cba8,#343e4a-->

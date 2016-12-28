@@ -1,0 +1,694 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      @-webkit-keyframes myfirst{
+        0% {color: blue;}
+        50% {color: black;}
+        100% {color: blue;}
+      }
+
+      @-o-keyframes myfirst {
+        0% {color: blue;}
+        50% {color: black;}
+        100% {color: blue;}
+      }
+      @-webkit-keyframes mys{
+        0% {-webkit-transform: rotate(0deg);}
+        33% {-webkit-transform: rotate(1deg);}
+        66% {-webkit-transform: rotate(-1deg);}
+        100% {-webkit-transform: rotate(0deg);}
+      }
+
+      @-o-keyframes mys {
+        0% {-o-transform: rotate(0deg);}
+        33% {-o-transform: rotate(1deg);}
+        66% {-o-transform: rotate(-1deg);}
+        100% {-o-transform: rotate(0deg);}
+      }
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-image: url(bg.png);
+        background-color: #eeeeee;
+        background-attachment: fixed;
+      }
+      canvas {
+        cursor: pointer;
+        border: 1px solid black;
+        margin:0;
+        background-color: #144752;
+        box-shadow: inset 0px 0px 200px black;
+    }
+      #po {
+        background-color: white;
+        position: relative;
+        height: 750px;
+        width: 600px;
+        margin: 20px auto;
+        padding: 0;
+        border: 10px solid white;
+        box-shadow: 0px 0px 1px #999999;
+      }
+      #po:before {
+      content: "";
+      background-color: transparent;
+      width: 300px;
+      height: 50px;
+      position: absolute;
+      left: 10px;
+      top: 703px;
+      box-shadow: -10px 5px 10px #222222;
+
+      transform:rotate(-2deg);
+      -ms-transform:rotate(-2deg); /* IE 9 */
+      -moz-transform:rotate(-2deg); /* Firefox */
+      -webkit-transform:rotate(-2deg); /* Safari and Chrome */
+      -o-transform:rotate(-2deg); /* Opera */
+
+      z-index: -1;
+    }
+    #po:after {
+      content: "";
+      background-color: transparent;
+      width: 300px;
+      height: 50px;
+      position: absolute;
+      left: 290px;
+      top: 703px;
+      box-shadow: 10px 5px 10px #222222 ;
+
+      transform:rotate(2deg);
+      -ms-transform:rotate(2deg); /* IE 9 */
+      -moz-transform:rotate(2deg); /* Firefox */
+      -webkit-transform:rotate(2deg); /* Safari and Chrome */
+      -o-transform:rotate(2deg); /* Opera */
+
+      z-index: -1;
+    }
+    canvas:hover {
+      animation: mys 0.5s;
+      -webkit-animation: mys 0.5s;
+      -o-animation: mys 0.5s;
+    }
+    #text {
+      text-align: center;
+      font-family: Microsoft YaHei;
+      font-size: 20px;
+      color: #444444;
+
+      animation: myfirst 5s;
+      -webkit-animation:myfirst 5s;
+      -o-animation:myfirst 5s;
+      animation-iteration-count:infinite;
+      -webkit-animation-iteration-count:infinite;
+      -o-animation-iteration-count:infinite;
+    }
+    footer {
+      text-align: center;
+      font-size: 8px;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="po">
+      <canvas id="myCanvas" width="600" height="750"></canvas>
+    </div>
+    <div id="text">
+      <p>试试在贺卡文字上滑动你的鼠标</p>
+    </div>
+    <footer>
+    <p style="color: blue">若粒子分散太开请尝试按F5刷新</p>
+      <p>By 2014122122 许蓓豪</p>
+      <p>素材来自网络</p>
+    </footer>
+    <script>
+      window.requestAnimFrame = (function(callback) {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        function(callback) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+      })();
+ 
+      function initBalls() {
+        balls = [];
+ 
+        var blue = '#9de4ff';
+        var red = '#c03b40';
+        var yellow = '#e5c0a3';
+        var green = '#9dffc4';
+        var tree = '#bb99ff';
+
+        //M
+        var m1Offset = 30+130;
+        
+        balls.push(new Ball(m1Offset + 10, 100, 0, 0, blue,3));
+
+        balls.push(new Ball(m1Offset + 10, 60, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 10, 70, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 10, 80, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 10, 90, 0, 0, blue,3));
+
+        balls.push(new Ball(m1Offset + 10, 50, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 15, 60, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 20, 70, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 25, 80, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 30, 90, 0, 0, blue,3));
+
+        balls.push(new Ball(m1Offset + 35, 100, 0, 0, blue,3));
+
+        balls.push(new Ball(m1Offset + 60, 50, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 55, 60, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 50, 70, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 45, 80, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 40, 90, 0, 0, blue,3));
+
+        balls.push(new Ball(m1Offset + 60, 60, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 60, 70, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 60, 80, 0, 0, blue,3));
+        balls.push(new Ball(m1Offset + 60, 90, 0, 0, blue,3));
+
+        balls.push(new Ball(m1Offset + 60, 100, 0, 0, blue,3));
+        //E
+        var eOffset = 110+130;
+        balls.push(new Ball(eOffset + 0, 50, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 0, 100, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 10, 50, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 17.5, 50, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 25, 50, 0, 0, red,3));
+
+        balls.push(new Ball(eOffset + 0, 60, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 0, 70, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 0, 80, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 0, 90, 0, 0, red,3));
+
+        balls.push(new Ball(eOffset + 10, 75, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 17.5, 75, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 25, 75, 0, 0, red,3));
+
+        balls.push(new Ball(eOffset + 10, 100, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 17.5, 100, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 25, 100, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 35, 50, 0, 0, red,3));
+        balls.push(new Ball(eOffset + 35, 100, 0, 0, red,3));
+        //R
+        var r1Offset = 165+130;
+        balls.push(new Ball(r1Offset + 0, 50, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 0, 100, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 10, 50, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 17.5, 50, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 25, 50, 0, 0, yellow,3));
+
+        balls.push(new Ball(r1Offset + 0, 60, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 0, 70, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 0, 80, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 0, 90, 0, 0, yellow,3));
+
+        balls.push(new Ball(r1Offset + 10, 75, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 17.5, 75, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 25, 75, 0, 0, yellow,3));
+
+
+        balls.push(new Ball(r1Offset + 35, 55, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 35, 70, 0, 0, yellow,3));
+
+        balls.push(new Ball(r1Offset + 30, 90, 0, 0, yellow,3));
+        balls.push(new Ball(r1Offset + 35, 100, 0, 0, yellow,3));
+        //R
+        var r2Offset = 220+130;
+        balls.push(new Ball(r2Offset + 0, 50, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 0, 100, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 10, 50, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 17.5, 50, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 25, 50, 0, 0, green,3));
+
+        balls.push(new Ball(r2Offset + 0, 60, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 0, 70, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 0, 80, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 0, 90, 0, 0, green,3));
+
+        balls.push(new Ball(r2Offset + 10, 75, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 17.5, 75, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 25, 75, 0, 0, green,3));
+
+        balls.push(new Ball(r2Offset + 35, 55, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 35, 70, 0, 0, green,3));
+
+        balls.push(new Ball(r2Offset + 30, 90, 0, 0, green,3));
+        balls.push(new Ball(r2Offset + 35, 100, 0, 0, green,3));
+        //Y
+        var yOffset = 275+130;
+        balls.push(new Ball(yOffset + 0, 50, 0, 0, blue,3));
+        balls.push(new Ball(yOffset + 35, 50, 0, 0, blue,3));
+
+        balls.push(new Ball(yOffset + 15, 70, 0, 0, blue,3));
+        balls.push(new Ball(yOffset + 20, 70, 0, 0, blue,3));
+        balls.push(new Ball(yOffset + 7.5, 60, 0, 0, blue,3));
+        balls.push(new Ball(yOffset + 27.5, 60, 0, 0, blue,3));
+
+        balls.push(new Ball(yOffset + 17.5, 80, 0, 0, blue,3));
+        balls.push(new Ball(yOffset + 17.5, 90, 0, 0, blue,3));
+
+        balls.push(new Ball(yOffset + 17.5, 100, 0, 0, blue,3));
+        //dot line
+        var dotOffset = 110;
+        balls.push(new Ball(dotOffset + 0, 150, 0, 0, green,1));
+        balls.push(new Ball(dotOffset + 20, 150, 0, 0, red,1));
+        balls.push(new Ball(dotOffset + 40, 150, 0, 0, yellow,1));
+        balls.push(new Ball(dotOffset + 60, 150, 0, 0, blue,1));
+        balls.push(new Ball(dotOffset + 80, 150, 0, 0, green,1));
+        balls.push(new Ball(dotOffset + 100, 150, 0, 0, red,1));
+        balls.push(new Ball(dotOffset + 120, 150, 0, 0, yellow,1));
+        balls.push(new Ball(dotOffset + 140, 150, 0, 0, blue,1));
+        balls.push(new Ball(dotOffset + 160, 150, 0, 0, green,1));
+        balls.push(new Ball(dotOffset + 180, 150, 0, 0, red,1));
+        balls.push(new Ball(dotOffset + 200, 150, 0, 0, yellow,1));
+        balls.push(new Ball(dotOffset + 220, 150, 0, 0, blue,1));
+        balls.push(new Ball(dotOffset + 240, 150, 0, 0, green,1));
+        balls.push(new Ball(dotOffset + 260, 150, 0, 0, red,1));
+        balls.push(new Ball(dotOffset + 280, 150, 0, 0, yellow,1));
+        balls.push(new Ball(dotOffset + 300, 150, 0, 0, blue,1));
+        balls.push(new Ball(dotOffset + 320, 150, 0, 0, green,1));
+        balls.push(new Ball(dotOffset + 340, 150, 0, 0, red,1));
+        balls.push(new Ball(dotOffset + 360, 150, 0, 0, yellow,1));
+        balls.push(new Ball(dotOffset + 380, 150, 0, 0, blue,1));
+        //C
+        var cOffset = 20+41.25;
+        balls.push(new Ball(cOffset + 10, 200, 0, 0, red,3));
+        balls.push(new Ball(cOffset + 17.5, 200, 0, 0, red,3));
+        balls.push(new Ball(cOffset + 25, 200, 0, 0, red,3));
+        balls.push(new Ball(cOffset + 35, 210, 0, 0, red,3));
+
+        balls.push(new Ball(cOffset + 0, 210, 0, 0, red,3));
+        balls.push(new Ball(cOffset + 0, 220, 0, 0, red,3));
+        balls.push(new Ball(cOffset + 0, 230, 0, 0, red,3));
+        balls.push(new Ball(cOffset + 0, 240, 0, 0, red,3));
+
+        balls.push(new Ball(cOffset + 10, 250, 0, 0, red,3));
+        balls.push(new Ball(cOffset + 17.5, 250, 0, 0, red,3));
+        balls.push(new Ball(cOffset + 25, 250, 0, 0, red,3));
+        balls.push(new Ball(cOffset + 35, 240, 0, 0, red,3));
+        //H
+        var hOffset = 75+41.25;
+        balls.push(new Ball(hOffset + 0, 200, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 0, 250, 0, 0, blue,3));
+
+        balls.push(new Ball(hOffset + 0, 210, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 0, 220, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 0, 230, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 0, 240, 0, 0, blue,3));
+
+        balls.push(new Ball(hOffset + 10, 225, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 17.5, 225, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 25, 225, 0, 0, blue,3));
+
+        balls.push(new Ball(hOffset + 35, 210, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 35, 220, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 35, 230, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 35, 240, 0, 0, blue,3));
+
+
+        balls.push(new Ball(hOffset + 35, 200, 0, 0, blue,3));
+        balls.push(new Ball(hOffset + 35, 250, 0, 0, blue,3));
+        //R
+        var rOffset = 130+41.25;
+        balls.push(new Ball(rOffset + 0, 200, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 10, 200, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 17.5, 200, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 25, 200, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 35, 205, 0, 0, yellow,3));
+
+        balls.push(new Ball(rOffset + 35, 220, 0, 0, yellow,3));
+
+        balls.push(new Ball(rOffset + 0, 210, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 0, 220, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 0, 230, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 0, 240, 0, 0, yellow,3));
+
+        balls.push(new Ball(rOffset + 10, 225, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 17.5, 225, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 25, 225, 0, 0, yellow,3));
+
+        balls.push(new Ball(rOffset + 30, 240, 0, 0, yellow,3));
+
+        balls.push(new Ball(rOffset + 0, 250, 0, 0, yellow,3));
+        balls.push(new Ball(rOffset + 35, 250, 0, 0, yellow,3));
+        //I
+        var iOffset = 185+41.25;
+        balls.push(new Ball(iOffset + 0, 200, 0, 0, green,3));
+        balls.push(new Ball(iOffset + 0, 250, 0, 0, green,3));
+
+        balls.push(new Ball(iOffset + 8.75, 200, 0, 0, green,3));
+        balls.push(new Ball(iOffset + 8.75, 210, 0, 0, green,3));
+        balls.push(new Ball(iOffset + 8.75, 220, 0, 0, green,3));
+        balls.push(new Ball(iOffset + 8.75, 230, 0, 0, green,3));
+        balls.push(new Ball(iOffset + 8.75, 240, 0, 0, green,3));
+        balls.push(new Ball(iOffset + 8.75, 250, 0, 0, green,3));
+
+        balls.push(new Ball(iOffset + 17.5, 200, 0, 0, green,3));
+        balls.push(new Ball(iOffset + 17.5, 250, 0, 0, green,3));
+        //S
+        var s1Offset = 222.5+41.25;
+        balls.push(new Ball(s1Offset + 0, 205, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 10, 200, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 17.5, 200, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 25, 200, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 35, 205, 0, 0, red,3));
+
+        balls.push(new Ball(s1Offset + 0, 215, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 10, 220, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 17.5, 225, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 25, 230, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 35, 235, 0, 0, red,3));
+
+        balls.push(new Ball(s1Offset + 10, 250, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 17.5, 250, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 25, 250, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 0, 245, 0, 0, red,3));
+        balls.push(new Ball(s1Offset + 35, 245, 0, 0, red,3));
+        //T
+        var tOffset = 277.5+41.25;
+        balls.push(new Ball(tOffset + 0, 200, 0, 0, blue,3));
+        balls.push(new Ball(tOffset + 10, 200, 0, 0, blue,3));
+        balls.push(new Ball(tOffset + 17.5, 200, 0, 0, blue,3));
+        balls.push(new Ball(tOffset + 25, 200, 0, 0, blue,3));
+        balls.push(new Ball(tOffset + 35, 200, 0, 0, blue,3));
+
+        balls.push(new Ball(tOffset + 17.5, 210, 0, 0, blue,3));
+        balls.push(new Ball(tOffset + 17.5, 220, 0, 0, blue,3));
+        balls.push(new Ball(tOffset + 17.5, 230, 0, 0, blue,3));
+        balls.push(new Ball(tOffset + 17.5, 240, 0, 0, blue,3));
+        balls.push(new Ball(tOffset + 17.5, 250, 0, 0, blue,3));
+
+        //M
+        var m2Offset = 335+41.25;
+        balls.push(new Ball(m2Offset + 0, 210, 0, 0, yellow,3));
+
+        balls.push(new Ball(m2Offset + 0, 220, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 0, 230, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 0, 240, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 0, 250, 0, 0, yellow,3));
+
+        balls.push(new Ball(m2Offset + 0, 200, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 5, 210, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 10, 220, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 15, 230, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 20, 240, 0, 0, yellow,3));
+
+        balls.push(new Ball(m2Offset + 25, 250, 0, 0, yellow,3));
+
+        balls.push(new Ball(m2Offset + 50, 200, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 45, 210, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 40, 220, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 35, 230, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 30, 240, 0, 0, yellow,3));
+
+        balls.push(new Ball(m2Offset + 50, 210, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 50, 220, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 50, 230, 0, 0, yellow,3));
+        balls.push(new Ball(m2Offset + 50, 240, 0, 0, yellow,3));
+
+        balls.push(new Ball(m2Offset + 50, 250, 0, 0, yellow,3));
+        //A
+        var aOffset = 407.5+41.25;
+        balls.push(new Ball(aOffset + 0, 250, 0, 0, green,3));
+
+        balls.push(new Ball(aOffset + 10, 210, 0, 0, green,3));
+        balls.push(new Ball(aOffset + 0, 220, 0, 0, green,3));
+        balls.push(new Ball(aOffset + 0, 230, 0, 0, green,3));
+        balls.push(new Ball(aOffset + 0, 240, 0, 0, green,3));
+
+        balls.push(new Ball(aOffset + 10, 225, 0, 0, green,3));
+        balls.push(new Ball(aOffset + 17.5, 225, 0, 0, green,3));
+        balls.push(new Ball(aOffset + 25, 225, 0, 0, green,3));
+
+        balls.push(new Ball(aOffset + 25, 210, 0, 0, green,3));
+        balls.push(new Ball(aOffset + 35, 220, 0, 0, green,3));
+        balls.push(new Ball(aOffset + 35, 230, 0, 0, green,3));
+        balls.push(new Ball(aOffset + 35, 240, 0, 0, green,3));
+
+        balls.push(new Ball(aOffset + 17.5, 200, 0, 0, green,3));
+        balls.push(new Ball(aOffset + 35, 250, 0, 0, green,3));
+        //S
+        var sOffset = 462.5+41.25;
+        balls.push(new Ball(sOffset + 0, 205, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 10, 200, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 17.5, 200, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 25, 200, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 35, 205, 0, 0, red,3));
+
+        balls.push(new Ball(sOffset + 0, 215, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 10, 220, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 17.5, 225, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 25, 230, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 35, 235, 0, 0, red,3));
+
+        balls.push(new Ball(sOffset + 10, 250, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 17.5, 250, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 25, 250, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 0, 245, 0, 0, red,3));
+        balls.push(new Ball(sOffset + 35, 245, 0, 0, red,3));
+
+        //tree
+        balls.push(new Ball(300, 300, 0, 0, tree,2));
+        balls.push(new Ball(292, 320, 0, 0, tree,2));
+        balls.push(new Ball(308, 320, 0, 0, tree,2));
+        balls.push(new Ball(280, 340, 0, 0, tree,2));
+        balls.push(new Ball(320, 340, 0, 0, tree,2));
+        balls.push(new Ball(265, 360, 0, 0, tree,2));
+        balls.push(new Ball(335, 360, 0, 0, tree,2));
+        balls.push(new Ball(247, 380, 0, 0, tree,2));
+        balls.push(new Ball(353, 380, 0, 0, tree,2));
+
+        balls.push(new Ball(225, 400, 0, 0, tree,2));
+        balls.push(new Ball(375, 400, 0, 0, tree,2));
+        balls.push(new Ball(250, 410, 0, 0, tree,2));
+        balls.push(new Ball(350, 410, 0, 0, tree,2));
+        balls.push(new Ball(242, 430, 0, 0, tree,2));
+        balls.push(new Ball(358, 430, 0, 0, tree,2));
+        balls.push(new Ball(230, 450, 0, 0, tree,2));
+        balls.push(new Ball(370, 450, 0, 0, tree,2));
+        balls.push(new Ball(215, 470, 0, 0, tree,2));
+        balls.push(new Ball(385, 470, 0, 0, tree,2));
+        balls.push(new Ball(195, 490, 0, 0, tree,2));
+        balls.push(new Ball(405, 490, 0, 0, tree,2));
+
+        balls.push(new Ball(175, 500, 0, 0, tree,2));
+        balls.push(new Ball(425, 500, 0, 0, tree,2));
+        balls.push(new Ball(200, 510, 0, 0, tree,2));
+        balls.push(new Ball(400, 510, 0, 0, tree,2));
+        balls.push(new Ball(193, 530, 0, 0, tree,2));
+        balls.push(new Ball(407, 530, 0, 0, tree,2));
+        balls.push(new Ball(182, 550, 0, 0, tree,2));
+        balls.push(new Ball(418, 550, 0, 0, tree,2));
+        balls.push(new Ball(170, 570, 0, 0, tree,2));
+        balls.push(new Ball(430, 570, 0, 0, tree,2));
+        balls.push(new Ball(150, 590, 0, 0, tree,2));
+        balls.push(new Ball(450, 590, 0, 0, tree,2));
+
+        balls.push(new Ball(125, 600, 0, 0, tree,2));
+        balls.push(new Ball(475, 600, 0, 0, tree,2));
+        balls.push(new Ball(150, 615, 0, 0, tree,2));
+        balls.push(new Ball(450, 615, 0, 0, tree,2));
+        balls.push(new Ball(175, 627, 0, 0, tree,2));
+        balls.push(new Ball(425, 627, 0, 0, tree,2));
+        balls.push(new Ball(200, 633, 0, 0, tree,2));
+        balls.push(new Ball(400, 633, 0, 0, tree,2));
+        balls.push(new Ball(225, 637, 0, 0, tree,2));
+        balls.push(new Ball(375, 637, 0, 0, tree,2));
+        balls.push(new Ball(250, 640, 0, 0, tree,2));
+        balls.push(new Ball(350, 640, 0, 0, tree,2));
+        balls.push(new Ball(275, 642, 0, 0, tree,2));
+        balls.push(new Ball(325, 642, 0, 0, tree,2));
+
+        balls.push(new Ball(270, 660, 0, 0, tree,2));
+        balls.push(new Ball(330, 660, 0, 0, tree,2));
+        balls.push(new Ball(290, 660, 0, 0, tree,2));
+        balls.push(new Ball(310, 660, 0, 0, tree,2));
+
+        return balls;
+      }
+      function getMousePos(canvas, evt) {
+        // get canvas position
+        var obj = canvas;
+        var top = 0;
+        var left = 0;
+        while(obj.tagName != 'BODY') {
+          top += obj.offsetTop;
+          left += obj.offsetLeft;
+          obj = obj.offsetParent;
+        }
+ 
+        // return relative mouse position
+        var mouseX = evt.clientX - left + window.pageXOffset;
+        var mouseY = evt.clientY - top + window.pageYOffset;
+        return {
+          x: mouseX,
+          y: mouseY
+        };
+      }
+      function updateBalls(canvas, balls, timeDiff, mousePos) {
+        var context = canvas.getContext('2d');
+        var collisionDamper = 0.5;
+        var floorFriction = 0.0005 * timeDiff;
+        var mouseForceMultiplier = 0.5 * timeDiff;
+        var restoreForce = 0.005 * timeDiff;
+ 
+        for(var n = 0; n < balls.length; n++) {
+          var ball = balls[n];
+          // set ball position based on velocity
+          ball.y += ball.vy;
+          ball.x += ball.vx;
+ 
+          // restore forces
+          if(ball.x > ball.origX) {
+            ball.vx -= restoreForce;
+          }
+          else {
+            ball.vx += restoreForce;
+          }
+          if(ball.y > ball.origY) {
+            ball.vy -= restoreForce;
+          }
+          else {
+            ball.vy += restoreForce;
+          }
+ 
+          // mouse forces
+          var mouseX = mousePos.x;
+          var mouseY = mousePos.y;
+ 
+          var distX = ball.x - mouseX;
+          var distY = ball.y - mouseY;
+ 
+          var radius = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
+ 
+          var totalDist = Math.abs(distX) + Math.abs(distY);
+ 
+          var forceX = (Math.abs(distX) / totalDist) * (1 / radius) * mouseForceMultiplier;
+          var forceY = (Math.abs(distY) / totalDist) * (1 / radius) * mouseForceMultiplier;
+ 
+          if(distX > 0) {// mouse is left of ball
+            ball.vx += forceX;
+          }
+          else {
+            ball.vx -= forceX;
+          }
+          if(distY > 0) {// mouse is on top of ball
+            ball.vy += forceY;
+          }
+          else {
+            ball.vy -= forceY;
+          }
+ 
+          // floor friction
+          if(ball.vx > 0) {
+            ball.vx -= floorFriction;
+          }
+          else if(ball.vx < 0) {
+            ball.vx += floorFriction;
+          }
+          if(ball.vy > 0) {
+            ball.vy -= floorFriction;
+          }
+          else if(ball.vy < 0) {
+            ball.vy += floorFriction;
+          }
+ 
+          // floor condition
+          if(ball.y > (canvas.height - ball.radius)) {
+            ball.y = canvas.height - ball.radius - 2;
+            ball.vy *= -1;
+            ball.vy *= (1 - collisionDamper);
+          }
+ 
+          // ceiling condition
+          if(ball.y < (ball.radius)) {
+            ball.y = ball.radius + 2;
+            ball.vy *= -1;
+            ball.vy *= (1 - collisionDamper);
+          }
+ 
+          // right wall condition
+          if(ball.x > (canvas.width - ball.radius)) {
+            ball.x = canvas.width - ball.radius - 2;
+            ball.vx *= -1;
+            ball.vx *= (1 - collisionDamper);
+          }
+ 
+          // left wall condition
+          if(ball.x < (ball.radius)) {
+            ball.x = ball.radius + 2;
+            ball.vx *= -1;
+            ball.vx *= (1 - collisionDamper);
+          }
+        }
+      }
+      function Ball(x, y, vx, vy, color,ra) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.color = color;
+        this.origX = x;
+        this.origY = y;
+        this.radius = ra;
+      }
+      function animate(canvas, balls, lastTime, mousePos) {
+        var context = canvas.getContext('2d');
+ 
+        // update
+        var date = new Date();
+        var time = date.getTime();
+        var timeDiff = time - lastTime;
+        updateBalls(canvas, balls, timeDiff, mousePos);
+        lastTime = time;
+ 
+        // clear
+        context.clearRect(0, 0, canvas.width, canvas.height);
+ 
+        // render
+        for(var n = 0; n < balls.length; n++) {
+          var ball = balls[n];
+          context.beginPath();
+          context.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, false);
+          context.shadowColor = ball.color;
+          context.shadowBlur = 15;
+          context.fillStyle = ball.color;
+          context.fill();
+        }
+ 
+        // request new frame
+        requestAnimFrame(function() {
+          animate(canvas, balls, lastTime, mousePos);
+        });
+      }
+      var canvas = document.getElementById('myCanvas');
+      var balls = initBalls();
+      var date = new Date();
+      var time = date.getTime();
+      /*
+       * set mouse position really far away
+       * so the mouse forces are nearly obsolete
+       */
+      var mousePos = {
+        x: 9999,
+        y: 9999
+      };
+ 
+      canvas.addEventListener('mousemove', function(evt) {
+        var pos = getMousePos(canvas, evt);
+        mousePos.x = pos.x;
+        mousePos.y = pos.y;
+      });
+ 
+      canvas.addEventListener('mouseout', function(evt) {
+        mousePos.x = 9999;
+        mousePos.y = 9999;
+      });
+      animate(canvas, balls, time, mousePos);
+ 
+    </script>
+  </body>
+</html>
