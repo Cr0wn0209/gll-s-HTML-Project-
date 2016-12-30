@@ -1,17 +1,38 @@
+	<!--期末项目-->
+	<!--tab切换页简历-->
+	<!--第一屏、个人基本信息介绍-->
+	<!--第二屏、个人技能、canvas绘制圆形进度条、html5拖放-->
+	<!--第三屏、项目展示（截图展示）-->
+		<!--canvas项目-->
+		<!--贺卡项目-->
+		<!--第一次简历项目-->
+		<!--罗远课程页面-->
+		<!--地理定位-->
+	<!--第四屏、具有本地存储功能的留言板-->
+	<!--右下角添加浮动按钮控制背景音乐，回到顶部按钮-->
+	<!--网页底部添加访问次数统计，当前时间，作者信息-->
+	<!--#115460,#392422,#6399a3,#c5d3d9,#e9cba8,#343e4a-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Final Project</title>
 	<link rel="stylesheet" type="text/css" href="style/layout.css">
 </head>
 <body>
 	<audio id="audio1" src="media/BGM.mp3" loop="loop">Try Another Browser</audio>
 	<div id="musicCtrl">
-		<div id="play"></div>
+		<div id="playbt"></div>
 		<div id="pause"></div>
 	</div>
 	<div id="backToTop"></div>
+	<div id="videoOuter">
+		<div id="videoTip">视频自动播放，点击页面空白处可返回简历</div>
+		<video id="myvideo" controls width="800" height="550">
+			<source src="media/video1.mp4">
+		</video>
+		<div class="clear"></div>
+	</div>
 	<div id="wrapper">
 		<header>
 			<div id="masthead">
@@ -199,16 +220,3 @@
 	<script src="script/script.js"></script>
 </body>
 </html>
-	<!--期末项目-->
-	<!--tab切换页简历-->
-	<!--第一屏、个人基本信息介绍-->
-	<!--第二屏、技能、canvas圆形进度条、div拖放-->
-	<!--第三屏、项目展示-->
-		<!--canvas项目-->
-		<!--贺卡项目-->
-		<!--第一次简历项目-->
-		<!--罗远课程页面-->
-		<!--地理定位-->
-	<!--第四屏、教师评价，访问次数统计-->
-	<!--右下角添加浮动按钮控制背景音乐，回到顶部-->
-	<!--#115460,#392422,#6399a3,#c5d3d9,#e9cba8,#343e4a-->

@@ -92,7 +92,7 @@ function checkTime(i) {
 	return i;
 }
 //背景音乐和控制按钮
-var mPlay = document.getElementById("play");
+var mPlay = document.getElementById("playbt");
 var mPause = document.getElementById("pause");
 var music1 = document.getElementById("audio1");
 function playMusic() {
@@ -277,9 +277,10 @@ function animation() {
 //本地存储
 function storetask(task) {
 	var taskdetail = document.getElementById(task).value;
-	var time=new Date().getTime();
+	var time = new Date().getTime();
 	localStorage.setItem(time,taskdetail);//留言存入
 	loadStorage("dispTxt");//留言输出
+	document.getElementById(task).value = "";
 }
 function loadStorage(id){
 	var target = document.getElementById(id);
@@ -306,6 +307,20 @@ subBt.onclick = function() {
 var clearBt = document.getElementById("clearBt");
 clearBt.onclick = function() {
 	clearStorage();
+}
+//video
+var headpic = document.getElementById("headPic");
+var outer = document.getElementById("videoOuter");
+var v = document.getElementById("myvideo");
+v.volume = "0";
+headpic.onclick = function() {
+	outer.style.display = "block";
+	v.load();
+	v.play();
+}
+outer.onclick = function() {
+	outer.style.display = "none";
+	v.pause();
 }
 //onload 事件
 function addLoadEvent(func) {  
